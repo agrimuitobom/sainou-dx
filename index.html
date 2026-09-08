@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>西農 DX アーカイブ</title>
+<meta name="description" content="西条農業高校の DX 実践と、公開しているリポジトリ・資料のリンク集。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="西農 DX アーカイブ">
+<meta property="og:description" content="西条農業高校の DX 実践と、公開しているリポジトリ・資料のリンク集。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./">
+      <span class="mark">農</span>
+      <span>
+        <span data-site="title">西農 DX アーカイブ</span>
+        <small data-site="school">広島県立西条農業高等学校</small>
+      </span>
+    </a>
+    <nav class="header-nav">
+      <a href="#links">リンク集</a>
+      <a href="#achievements">これまでの歩み</a>
+      <a href="#howto">追加のしかた</a>
+      <a class="primary" href="qr.html">展示用 QR</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow">🌾 農業高校 × デジタル</span>
+          <h1 data-site="tagline">農業高校の学びを、デジタルで残す・つなぐ・広げる</h1>
+          <p class="lead" data-site="description"></p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#links">リンク集を見る</a>
+            <a class="btn btn-ghost" href="qr.html">展示用 QR ポスター</a>
+          </div>
+        </div>
+        <aside class="hero-qr">
+          <div class="qr-box" id="hero-qr"></div>
+          <p data-site="url"></p>
+        </aside>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+  </section>
+
+  <section id="links">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>リンク集</h2>
+        <p>リポジトリ・サイト・資料へのリンクです。カードの「QR」を押すと、その場でスマホに読み取ってもらえます。</p>
+      </div>
+      <div class="toolbar">
+        <label class="search">
+          🔍
+          <input id="search-input" type="search" placeholder="キーワードで探す（例：センサー、Python）" aria-label="リンクを検索">
+        </label>
+        <div class="chips" id="chips"></div>
+      </div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section id="achievements">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>これまでの歩み</h2>
+        <p>いつ、何に取り組み、何が変わったのかの記録です。</p>
+      </div>
+      <ul class="timeline" id="timeline"></ul>
+    </div>
+  </section>
+
+  <section id="howto">
+    <div class="wrap">
+      <div class="howto">
+        <h2>リンクを追加するには</h2>
+        <ol>
+          <li>GitHub で <code>data/links.js</code> を開く</li>
+          <li>鉛筆アイコンから編集し、<code>{ title, url, category, description }</code> のかたまりを 1 つ足す</li>
+          <li>コミットすれば、数十秒後にこのページへ自動で反映されます</li>
+        </ol>
+        <p>実績の年表は <code>data/achievements.js</code>、サイト名や QR の URL は <code>data/site.js</code> です。
+          くわしい書きかたは <a href="https://github.com/agrimuitobom/sainou-dx#readme">README</a> にまとめてあります。</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span data-site="school">広島県立西条農業高等学校</span>
+    <span>&copy; <span data-site="year"></span></span>
+    <a class="spacer" id="site-contact" data-site="contact" href="#">お問い合わせ</a>
+  </div>
+</footer>
+
+<div class="modal" id="qr-modal" hidden role="dialog" aria-modal="true" aria-labelledby="qr-modal-title">
+  <div class="modal-panel">
+    <h3 id="qr-modal-title">QR コード</h3>
+    <div class="qr-box" id="qr-modal-code"></div>
+    <p class="url" id="qr-modal-url"></p>
+    <div class="modal-actions">
+      <a class="btn btn-primary" id="qr-modal-open" href="#" target="_blank" rel="noopener">リンクを開く</a>
+      <button class="btn btn-ghost" id="qr-modal-save" type="button">PNG 保存</button>
+      <button class="btn btn-ghost" id="qr-modal-close" type="button">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/vendor/qrcode.js"></script>
+<script src="assets/vendor/qrcode_UTF8.js"></script>
+<script src="data/site.js"></script>
+<script src="data/links.js"></script>
+<script src="data/achievements.js"></script>
+<script src="assets/js/qr.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>展示用 QR ポスター | 西農 DX アーカイブ</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="poster">
+  <div class="poster-card">
+    <div class="school" data-site="school">広島県立西条農業高等学校</div>
+    <h1 data-site="title">西農 DX アーカイブ</h1>
+    <p class="tagline" data-site="tagline"></p>
+
+    <div class="qr-box" id="poster-qr"></div>
+
+    <p class="lead" id="poster-lead">スマホでスキャン！</p>
+    <p class="url" data-site="url"></p>
+    <p class="note" id="poster-note"></p>
+
+    <div class="event">
+      <span id="poster-event"></span> ／ <span id="poster-booth"></span>
+    </div>
+  </div>
+</div>
+
+<div class="no-print">
+  <button class="btn btn-primary" type="button" onclick="window.print()">印刷（A4 縦）</button>
+  <button class="btn btn-ghost" type="button" id="save-png">QR を PNG 保存</button>
+  <a class="btn btn-ghost" href="./">トップへ戻る</a>
+</div>
+
+<script src="assets/vendor/qrcode.js"></script>
+<script src="assets/vendor/qrcode_UTF8.js"></script>
+<script src="data/site.js"></script>
+<script src="assets/js/qr.js"></script>
+<script>
+(function () {
+  var SITE = window.SITE || {};
+  var ex = SITE.exhibition || {};
+  var url = SITE.url || location.href.replace(/qr\.html$/, "");
+
+  function set(sel, value) {
+    document.querySelectorAll(sel).forEach(function (n) { if (value) n.textContent = value; });
+  }
+  set("[data-site='school']", SITE.school);
+  set("[data-site='title']", SITE.title);
+  set("[data-site='tagline']", SITE.tagline);
+  set("[data-site='url']", url);
+  set("#poster-lead", ex.lead);
+  set("#poster-note", ex.note);
+  set("#poster-event", ex.event);
+  set("#poster-booth", ex.booth);
+
+  /* 展示では遠くからでも読めるよう、誤り訂正レベルを高め（H）にしています */
+  window.QR.renderInto(document.getElementById("poster-qr"), url, {
+    cellSize: 8, margin: 4, level: "H", label: SITE.title,
+  });
+
+  document.getElementById("save-png").addEventListener("click", function () {
+    window.QR.downloadPng(url, "sainou-dx-qr.png", 2048);
+  });
+})();
+</script>
+</body>
+</html>
