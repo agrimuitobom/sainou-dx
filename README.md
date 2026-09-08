@@ -93,11 +93,19 @@ QR は誤り訂正レベル **H** で生成しているので、多少汚れた�
 
 ---
 
-## 5. 公開の設定（最初の 1 回だけ）
+## 5. 公開のしくみ
 
-1. GitHub の **Settings → Pages** を開く
-2. **Source** を **GitHub Actions** にする
-3. `main` ブランチに push すると `.github/workflows/pages.yml` が動き、自動で公開されます
+GitHub Pages の **ブランチ配信** を使っています（設定は Settings → Pages）。
+
+- Source: **Deploy from a branch**
+- Branch: **`main` / `(root)`**
+
+つまり **`main` ブランチの中身がそのまま公開ページ** です。
+`main` に変更が入ると、1 分ほどで <https://agrimuitobom.github.io/sainou-dx/> に反映されます
+（反映状況は Actions タブの "pages build and deployment" で確認できます）。
+
+ビルドは走らないので、HTML/CSS/JS をそのまま置けます。
+`.nojekyll` を置いてあるため、`_` で始まるファイル名も無視されません。
 
 ---
 
@@ -128,6 +136,7 @@ assets/js/app.js           トップページの組み立て
 assets/js/qr.js            QR 描画（SVG / PNG）
 assets/vendor/qrcode*.js   QR 生成ライブラリ（同梱）
 scripts/check-data.mjs     データの書きかたチェック
+.nojekyll                  GitHub Pages に「そのまま配信して」と伝える印
 ```
 
 ビルド不要・依存パッケージなしの素の HTML/CSS/JS です。数年後に後輩が触っても壊れにくいことを優先しています。
