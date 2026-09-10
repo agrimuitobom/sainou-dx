@@ -56,7 +56,7 @@ function fail(message) {
 
 function checkUrl(url, label) {
   if (!/^https:\/\/[^\s"'<>]+$/i.test(url) && !/^http:\/\/[^\s"'<>]+$/i.test(url)) {
-    fail(`${label} が「https://」で始まる形になっていません（入力: ${url || "空欄"}）。\nこの Issue を編集して直すと、もう一度取り込みます。`);
+    fail(`${label} が「https://」で始まる形になっていません（入力: ${url || "空欄"}）。`);
   }
 }
 
@@ -76,7 +76,7 @@ if (kind === "link") {
   const year = get("年");
   const featured = checked("目立たせる");
 
-  if (!title) fail("「表示名」が空欄です。この Issue を編集して入力してください。");
+  if (!title) fail("「表示名」が空欄です。");
   checkUrl(url, "URL");
   if (LINKS.some((l) => l.url === url)) {
     fail(`この URL はすでにリンク集にあります（${url}）。追加は見送りました。`);
@@ -103,8 +103,8 @@ if (kind === "link") {
   const linkUrl = get("関連リンクの URL");
   const linkLabel = get("関連リンクの表示名") || "リンク";
 
-  if (!date) fail("「時期」が空欄です。この Issue を編集して入力してください。");
-  if (!title) fail("「見出し」が空欄です。この Issue を編集して入力してください。");
+  if (!date) fail("「時期」が空欄です。");
+  if (!title) fail("「見出し」が空欄です。");
   if (linkUrl) checkUrl(linkUrl, "関連リンクの URL");
 
   const lines = ["  {", `    date: ${S(date)},`, `    title: ${S(title)},`];
