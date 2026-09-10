@@ -1,0 +1,128 @@
+# Issue フォームの内容を data/*.js に追記し、main に push して公開ページへ反映します。
+# 追加できるのはリポジトリのオーナーと共同編集者だけです（誰でも書き込めると困るため）。
+name: Issue から追加
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: issue-to-data
+  cancel-in-progress: false
+
+jobs:
+  add:
+    if: >-
+      github.event.issue.state == 'open' &&
+      (contains(github.event.issue.labels.*.name, 'add-link') ||
+       contains(github.event.issue.labels.*.name, 'add-achievement'))
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      SITE_URL: https://agrimuitobom.github.io/sainou-dx/
+    steps:
+      - name: 権限を確認する
+        env:
+          ASSOCIATION: ${{ github.event.issue.author_association }}
+        run: |
+          case "$ASSOCIATION" in
+            OWNER|MEMBER|COLLABORATOR)
+              echo "権限あり（$ASSOCIATION）"
+              ;;
+            *)
+              printf '%s\n' "ご提案ありがとうございます。自動追加はこのリポジトリの管理者だけが使えるため、担当者が確認してから反映します。" > comment.md
+              gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body-file comment.md
+              exit 1
+              ;;
+          esac
+
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 種類を判別する
+        id: kind
+        env:
+          IS_LINK: ${{ contains(github.event.issue.labels.*.name, 'add-link') }}
+        run: |
+          if [ "$IS_LINK" = "true" ]; then
+            echo "kind=link" >> "$GITHUB_OUTPUT"
+          else
+            echo "kind=achievement" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: データファイルに追記する
+        id: apply
+        env:
+          ISSUE_KIND: ${{ steps.kind.outputs.kind }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          RESULT_FILE: result.txt
+        run: |
+          set +e
+          node scripts/issue-to-data.mjs
+          status=$?
+          set -e
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+
+      - name: 書きかたを検査する
+        id: check
+        if: steps.apply.outputs.status == '0'
+        run: node scripts/check-data.mjs
+
+      - name: main に反映する
+        id: push
+        if: steps.apply.outputs.status == '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          MESSAGE="$(cat result.txt)"
+          git commit -m "$MESSAGE" -m "Issue #${ISSUE_NUMBER} から自動追加"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: 結果を Issue に返す
+        if: always() && steps.apply.outcome == 'success'
+        env:
+          STATUS: ${{ steps.apply.outputs.status }}
+          PUSH_OUTCOME: ${{ steps.push.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          MESSAGE="$(cat result.txt 2>/dev/null || echo '（詳しい理由を取得できませんでした）')"
+          if [ "$STATUS" = "0" ] && [ "$PUSH_OUTCOME" != "success" ]; then
+            {
+              printf '%s\n\n' "内容は正しかったのですが、サイトへの反映でつまずきました 🙏"
+              printf '%s\n' "実行ログ: $RUN_URL"
+              printf '%s\n' "この Issue の本文を編集して保存すると、もう一度やり直します。"
+            } > comment.md
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body-file comment.md
+            exit 1
+          fi
+          if [ "$STATUS" = "0" ]; then
+            {
+              printf '%s\n\n' "反映しました 🌱"
+              printf '%s\n\n' "$MESSAGE"
+              printf '%s\n' "1 分ほどで $SITE_URL に出ます。"
+              printf '%s\n' "直したいときは data/ のファイルを編集するか、新しく Issue を立ててください。"
+            } > comment.md
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body-file comment.md
+            gh issue close "$ISSUE_NUMBER" --repo "$REPO" --reason completed
+          else
+            {
+              printf '%s\n\n' "うまく追加できませんでした 🙏"
+              printf '%s\n\n' "$MESSAGE"
+              printf '%s\n' "この Issue の本文を編集して保存すると、もう一度やり直します。"
+            } > comment.md
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body-file comment.md
+            exit 1
+          fi

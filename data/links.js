@@ -82,4 +82,8 @@ window.LINKS = [
     year: "2026",
     sample: true,
   },
+
+  // === ここから下に Issue から追加された項目が入ります ===
+  // ↓ この目印の行は消さないでください（自動追加の目印です）
+  /* AUTO-INSERT:LINKS */
 ];

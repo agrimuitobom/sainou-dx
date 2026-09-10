@@ -6,9 +6,29 @@
 - 公開 URL: <https://agrimuitobom.github.io/sainou-dx/>
 - 展示用 QR ポスター: <https://agrimuitobom.github.io/sainou-dx/qr.html>（ブラウザからそのまま A4 印刷できます）
 
+**リンクを足したいとき** → [Issue を立てる](https://github.com/agrimuitobom/sainou-dx/issues/new/choose)だけで自動的にサイトへ反映されます（下の「1.」参照）。
+更新のしかたはこの README にまとめてあり、サイト側には出していません。
+
 ---
 
-## 1. リンクを追加する（いちばんよく使う操作）
+## 1. リンクを追加する（おすすめ：Issue から）
+
+**GitHub の Issue に入力するだけ**で、サイトのリンク集に追加されます。ファイルを触る必要はありません。
+
+1. リポジトリの **[Issues](https://github.com/agrimuitobom/sainou-dx/issues) → New issue** を開く
+2. **「リンクを追加する」** の Get started を押す
+3. 表示名・URL・カテゴリなどを入れて **Create** を押す
+
+1〜2 分で自動的に `data/links.js` へ追記され、サイトに反映されます。終わると Issue にコメントが付いて自動で閉じます。
+URL の書きまちがいや重複があるときも Issue にコメントで返ってくるので、**本文を直して保存すればやり直し**ます。
+
+年表に足したいときは、同じ手順で **「実績（歩み）を追加する」** を選んでください。
+
+> 自動追加が使えるのはリポジトリのオーナーと共同編集者だけです。ほかの人が立てた Issue は反映されず、確認をお願いするコメントが付きます。
+
+---
+
+## 2. ファイルを直接編集して追加する（細かく調整したいとき）
 
 編集するのは **`data/links.js`** の 1 ファイルだけです。GitHub のウェブ画面で鉛筆アイコンから直接編集できます。
 
@@ -31,15 +51,19 @@
 2. `window.LINKS = [` … `];` の中に、上のような `{ ... },` を 1 つ足す
 3. 保存（コミット）する → 1 分ほどで公開サイトに反映されます
 
+既存の項目を **直す・消す** ときも、このファイルを編集します（Issue からできるのは追加だけです）。
+
 **つまずきやすいところ**
 
 - かたまりの最後の `,`（カンマ）を忘れない
 - 文字は `"` で囲む。文中に `"` を使いたいときは `「」` に置き換えると安全
-- 迷ったら手元で `node scripts/check-data.mjs` を実行するとチェックできます（GitHub 上でも自動で走ります）
+- `/* AUTO-INSERT:LINKS */` の行は消さない（Issue から追加するときの目印です）
+- 迷ったら手元で `node scripts/check-data.mjs`。GitHub 上でも push のたびに自動で走ります
 
 ### 使えるカテゴリ
 
-`data/links.js` の先頭 `window.CATEGORIES` で定義しています。増やすのも自由です。
+`data/links.js` の先頭 `window.CATEGORIES` で定義しています。増やすのも自由です
+（増やしたら `.github/ISSUE_TEMPLATE/01-add-link.yml` の選択肢にも同じ名前を足してください）。
 
 | id | 表示名 |
 | --- | --- |
@@ -53,11 +77,9 @@
 
 `github` / `site` / `slide` / `doc` / `video` / `form` / `app`
 
----
+### 実績（年表）を直接編集する
 
-## 2. 実績（年表）を追加する
-
-**`data/achievements.js`** に、新しいものを上から書き足します。
+**`data/achievements.js`** の `/* AUTO-INSERT:ACHIEVEMENTS */` の下に、新しいものを足します（上にあるものほど新しい並びです）。
 
 ```js
   {
@@ -136,6 +158,9 @@ assets/js/app.js           トップページの組み立て
 assets/js/qr.js            QR 描画（SVG / PNG）
 assets/vendor/qrcode*.js   QR 生成ライブラリ（同梱）
 scripts/check-data.mjs     データの書きかたチェック
+scripts/issue-to-data.mjs  Issue の内容を data/ に追記する処理
+.github/ISSUE_TEMPLATE/    「リンクを追加する」などの入力フォーム
+.github/workflows/         Issue からの自動追加と、データの自動チェック
 .nojekyll                  GitHub Pages に「そのまま配信して」と伝える印
 ```
 

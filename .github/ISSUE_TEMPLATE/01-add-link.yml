@@ -1,0 +1,92 @@
+name: リンクを追加する
+description: リポジトリ・サイト・スライドなどをリンク集に追加します（送信すると自動でサイトに反映されます）
+title: "リンク追加: "
+labels: ["add-link"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        入力して「Create」を押すと、1〜2 分でサイトのリンク集に追加されます。
+        あとから直したいときは、この Issue ではなく `data/links.js` を編集してください。
+
+  - type: input
+    id: link_title
+    attributes:
+      label: 表示名
+      description: カードの見出しになります
+      placeholder: ハウス環境モニタリング
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      description: https:// から始まるアドレス。QR コードもここから作られます
+      placeholder: https://github.com/agrimuitobom/example
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: カテゴリ
+      options:
+        - スマート農業
+        - 校内 DX
+        - 生徒プロジェクト
+        - 資料・スライド
+        - その他
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 種類
+      description: カードに出る小さなアイコンです
+      options:
+        - リポジトリ
+        - サイト
+        - スライド
+        - 資料
+        - 動画
+        - フォーム
+        - アプリ
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 説明
+      description: 1〜2 行で。何をするもので、何が良くなったのか
+      placeholder: 温度・湿度・CO2 を 10 分おきに記録してグラフ化する仕組み。
+    validations:
+      required: false
+
+  - type: input
+    id: tags
+    attributes:
+      label: タグ
+      description: カンマ区切り。検索でも引っかかるようになります
+      placeholder: M5Stack, センサー, Python
+    validations:
+      required: false
+
+  - type: input
+    id: year
+    attributes:
+      label: 年
+      description: 新しいものから順に並びます
+      placeholder: "2026"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: featured
+    attributes:
+      label: 目立たせる
+      options:
+        - label: リンク集の先頭に「注目」として表示する
+          required: false

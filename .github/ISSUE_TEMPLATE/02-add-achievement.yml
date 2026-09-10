@@ -1,0 +1,61 @@
+name: 実績（歩み）を追加する
+description: 「これまでの歩み」の年表に 1 件足します（送信すると自動でサイトに反映されます）
+title: "実績追加: "
+labels: ["add-achievement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        入力して「Create」を押すと、1〜2 分でサイトの年表に追加されます（新しいものが上に入ります）。
+
+  - type: input
+    id: date
+    attributes:
+      label: 時期
+      description: 表示にそのまま使います
+      placeholder: 2026.05 / 2025年度 など
+    validations:
+      required: true
+
+  - type: input
+    id: achievement_title
+    attributes:
+      label: 見出し
+      placeholder: ドローンで生育状況を空撮
+    validations:
+      required: true
+
+  - type: textarea
+    id: body
+    attributes:
+      label: 内容
+      description: 何をして、何が変わったのか
+      placeholder: 圃場全体を月 1 回撮影して生育のばらつきを可視化。追肥の判断が早くなった。
+    validations:
+      required: false
+
+  - type: input
+    id: tags
+    attributes:
+      label: タグ
+      description: カンマ区切り
+      placeholder: スマート農業, 課題研究
+    validations:
+      required: false
+
+  - type: input
+    id: link_url
+    attributes:
+      label: 関連リンクの URL
+      description: 資料やリポジトリがあれば（なくても大丈夫です）
+      placeholder: https://github.com/agrimuitobom/example
+    validations:
+      required: false
+
+  - type: input
+    id: link_label
+    attributes:
+      label: 関連リンクの表示名
+      placeholder: 発表資料
+    validations:
+      required: false
