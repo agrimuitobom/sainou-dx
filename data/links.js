@@ -86,13 +86,4 @@ window.LINKS = [
   // === ここから下に Issue から追加された項目が入ります ===
   // ↓ この目印の行は消さないでください（自動追加の目印です）
   /* AUTO-INSERT:LINKS */
-  {
-    title: "動作テスト（このあと削除します）",
-    url: "https://github.com/agrimuitobom/sainou-dx/blob/main/README.md",
-    category: "other",
-    description: "Issue からの自動追加を確認するためのテストです。確認後に削除します。",
-    kind: "doc",
-    tags: ["テスト"],
-    year: "2026",
-  },
 ];
