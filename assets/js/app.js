@@ -161,6 +161,15 @@
         card.appendChild(tags);
       }
 
+      var foot = el("div", "card-foot");
+
+      if (link.downloadUrl) {
+        var dl = el("a", "mini mini-strong card-download", "⬇ " + (link.downloadLabel || "ダウンロード"));
+        dl.href = link.downloadUrl;
+        dl.setAttribute("download", "");
+        foot.appendChild(dl);
+      }
+
       var actions = el("div", "card-actions");
       var open = el("a", "mini", "開く ↗");
       open.href = link.url;
@@ -183,7 +192,8 @@
       });
       actions.appendChild(copy);
 
-      card.appendChild(actions);
+      foot.appendChild(actions);
+      card.appendChild(foot);
       box.appendChild(card);
     });
   }
@@ -229,6 +239,15 @@
     $("#qr-modal-title").textContent = link.title || "QR コード";
     $("#qr-modal-url").textContent = link.url;
     window.QR.renderInto($("#qr-modal-code"), link.url, { cellSize: 5, margin: 8, label: link.title });
+
+    var dlRow = $("#qr-modal-download");
+    if (link.downloadUrl) {
+      dlRow.hidden = false;
+      $("#qr-modal-download-link").href = link.downloadUrl;
+      $("#qr-modal-download-link").textContent = "⬇ " + (link.downloadLabel || "ダウンロード");
+    } else {
+      dlRow.hidden = true;
+    }
     var open = $("#qr-modal-open");
     open.href = link.url;
     $("#qr-modal-save").onclick = function () {

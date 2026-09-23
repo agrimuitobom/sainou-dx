@@ -146,13 +146,22 @@ section { padding: 3rem 0; }
 .card p { margin: 0 0 .8rem; font-size: .87rem; color: var(--ink-soft); }
 .tags { display: flex; flex-wrap: wrap; gap: .3rem; margin-bottom: .9rem; }
 .tag { font-size: .72rem; color: var(--ink-soft); background: #f1f4ef; border-radius: 6px; padding: .12rem .45rem; }
-.card-actions { margin-top: auto; display: flex; gap: .45rem; }
+.card-foot { margin-top: auto; }
+.card-actions { display: flex; flex-wrap: wrap; gap: .45rem; }
+.card-download {
+  display: flex; justify-content: center; margin-bottom: .5rem;
+  padding: .5rem .8rem; font-size: .85rem;
+}
 .mini {
   border: 1px solid var(--line); background: #fff; color: var(--ink-soft);
   border-radius: 8px; padding: .32rem .7rem; font: inherit; font-size: .8rem; font-weight: 600;
   cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .3rem;
 }
 .mini:hover { border-color: var(--green-500); color: var(--green-700); }
+.mini-strong { background: var(--green-700); border-color: var(--green-700); color: #fff; }
+.mini-strong:hover { background: var(--green-900); border-color: var(--green-900); color: #fff; }
+.modal-download { margin: .9rem 0 0; font-size: .85rem; }
+.modal-download a { font-weight: 700; }
 .badge-sample {
   position: absolute; top: -9px; right: 12px;
   background: var(--gold); color: #3a2a00; font-size: .68rem; font-weight: 700;

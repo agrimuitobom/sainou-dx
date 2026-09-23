@@ -83,6 +83,24 @@ body:
     validations:
       required: false
 
+  - type: input
+    id: download_url
+    attributes:
+      label: ダウンロード用ファイルの URL
+      description: 配布したいファイルがあれば。カードに「ダウンロード」ボタンが出ます（assets/files に置いた URL など）
+      placeholder: https://agrimuitobom.github.io/sainou-dx/assets/files/xxx.fmp12
+    validations:
+      required: false
+
+  - type: input
+    id: download_label
+    attributes:
+      label: ダウンロードボタンの文言
+      description: 省略すると「ダウンロード」になります
+      placeholder: アプリダウンロード
+    validations:
+      required: false
+
   - type: checkboxes
     id: featured
     attributes:

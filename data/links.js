@@ -15,6 +15,8 @@
  *   tags        … ["Python", "M5Stack"] のような目印。検索でも引っかかります
  *   year        … "2025" など。新しい順に並べたいときの目安
  *   featured    … true にすると先頭の「注目」欄にも出ます
+ *   downloadUrl … ダウンロードさせたいファイルの URL（書くとボタンが出ます）
+ *   downloadLabel … そのボタンの文言（省略すると「ダウンロード」）
  *   sample      … サンプル行の印。自分のものを書いたら消してください
  * ===================================================================== */
 
@@ -53,20 +55,14 @@ window.LINKS = [
     title: "GLOBAL G.A.P 書類管理アプリ（FileMaker）",
     url: "https://agrimuitobom.github.io/sainou-dx/assets/docs/ggap-filemaker-poster.pdf",
     category: "school-dx",
-    description: "GGAP 審査の膨大な書類を、FileMaker Pro のリレーショナルデータベースで管理。iPad の FileMaker Go から扱えます。審査準備の時間を 74.8%、紙を 1200 枚ほど削減しました（発表ポスター PDF）。",
+    description: "GGAP 審査の膨大な書類を、FileMaker Pro のリレーショナルデータベースで管理。iPad の FileMaker Go から扱えます。審査準備の時間を 74.8%、紙を 1200 枚ほど削減しました。「開く」で発表ポスター、下のボタンでアプリ本体（データは空）を配布しています。",
     kind: "doc",
     tags: ["FileMaker", "GLOBAL G.A.P", "データベース", "iPad"],
     year: "2026",
     featured: true,
-  },
-  {
-    title: "GGAP 書類管理アプリ（FileMaker ファイル）",
-    url: "https://agrimuitobom.github.io/sainou-dx/assets/files/ggap-filemaker-template.fmp12",
-    category: "school-dx",
-    description: "上のアプリ本体を、データを空にした状態で配布しています。FileMaker Pro で開けば、テーブル構成やレイアウトをそのまま見られます。",
-    kind: "app",
-    tags: ["FileMaker", "GLOBAL G.A.P", "配布用"],
-    year: "2026",
+    // downloadUrl を書くと、カードにダウンロード用のボタンが出ます
+    downloadUrl: "https://agrimuitobom.github.io/sainou-dx/assets/files/ggap-filemaker-template.fmp12",
+    downloadLabel: "アプリダウンロード",
   },
   {
     title: "GAP Tracker（管理記録アプリ）",

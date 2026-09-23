@@ -75,6 +75,8 @@ if (kind === "link") {
   const tags = splitTags(get("タグ"));
   const year = get("年");
   const featured = checked("目立たせる");
+  const downloadUrl = get("ダウンロード用ファイルの URL");
+  const downloadLabel = get("ダウンロードボタンの文言");
 
   if (!title) fail("「表示名」が空欄です。");
   checkUrl(url, "URL");
@@ -89,6 +91,11 @@ if (kind === "link") {
   if (tags.length) lines.push(`    tags: ${arr(tags)},`);
   if (year) lines.push(`    year: ${S(year)},`);
   if (featured) lines.push("    featured: true,");
+  if (downloadUrl) {
+    checkUrl(downloadUrl, "ダウンロード用ファイルの URL");
+    lines.push(`    downloadUrl: ${S(downloadUrl)},`);
+    if (downloadLabel) lines.push(`    downloadLabel: ${S(downloadLabel)},`);
+  }
   lines.push("  },");
 
   file = "data/links.js";
