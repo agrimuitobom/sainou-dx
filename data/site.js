@@ -12,7 +12,8 @@ window.SITE = {
   // 独自ドメインや別の場所で公開する場合はここを差し替えてください。
   url: "https://agrimuitobom.github.io/sainou-dx/",
 
-  school: "広島県立西条農業高等学校",
+  school: "愛媛県立西条農業高等学校",
+  schoolUrl: "https://ehm-saijo-ah.esnet.ed.jp/", // 学校公式サイト（空 "" にするとリンクを出しません）
   title: "西農 DX アーカイブ",
   tagline: "農業高校の学びを、デジタルで残す・つなぐ・広げる",
   description:

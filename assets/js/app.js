@@ -38,6 +38,14 @@
     setText("[data-site='url']", pageUrl());
     setText("[data-site='year']", String(new Date().getFullYear()));
 
+    document.querySelectorAll("[data-site='school-url']").forEach(function (node) {
+      if (SITE.schoolUrl) {
+        node.href = SITE.schoolUrl;
+      } else {
+        node.remove(); // URL が未設定ならリンクごと消す
+      }
+    });
+
     var contact = $("[data-site='contact']");
     if (contact) {
       if (SITE.contactUrl) {
