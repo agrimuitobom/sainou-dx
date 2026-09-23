@@ -115,7 +115,35 @@ QR は誤り訂正レベル **H** で生成しているので、多少汚れた�
 
 ---
 
-## 5. 公開のしくみ
+## 5. 資料やファイルを置く
+
+PDF・画像・配布用ファイルは、リポジトリに置けばそのまま公開ページから開けます。
+
+| 置き場所 | 用途 |
+| --- | --- |
+| `assets/docs/` | 発表ポスター、手順書などの PDF |
+| `assets/files/` | 配布したいファイル（FileMaker ソリューションなど） |
+
+置いたあとのリンク先は `https://agrimuitobom.github.io/sainou-dx/assets/docs/ファイル名` の形になります。
+その URL を Issue の「リンクを追加する」に貼れば、リンク集のカードになります。
+
+**アップロードのしかた（GitHub のウェブ画面）**
+
+1. [assets/docs](https://github.com/agrimuitobom/sainou-dx/tree/main/assets/docs) などのフォルダを開く
+2. 右上の **Add file → Upload files** を押す
+3. ファイルをドラッグして **Commit changes**
+
+100MB を超えるファイルは GitHub に置けません。動画などはそのままではなく、YouTube 等に上げてリンクを貼ってください。
+
+**配布用ファイルを置くときの注意**
+
+- FileMaker（.fmp12）や表計算のファイルは、**中のデータごと全世界に公開されます**。レコードを空にしたコピーを置いてください
+- FileMaker は削除したレコードの跡がファイル内に残ることがあります。**［ファイル］→［名前を付けて保存］→「圧縮されたコピー」** で保存し直すと、その跡ごと取り除けます
+- 公開前に、そのコピーを開いてレコード数が 0 になっているか、オブジェクトフィールドに写真が残っていないかを確認してください
+
+---
+
+## 6. 公開のしくみ
 
 GitHub Pages の **ブランチ配信** を使っています（設定は Settings → Pages）。
 
@@ -131,7 +159,7 @@ GitHub Pages の **ブランチ配信** を使っています（設定は Settin
 
 ---
 
-## 6. 手元で確認する
+## 7. 手元で確認する
 
 JavaScript でデータを読み込んでいるので、`index.html` をダブルクリックしても動きますが、
 念のためローカルサーバーで見るのが確実です。
@@ -157,6 +185,8 @@ assets/css/style.css       見た目
 assets/js/app.js           トップページの組み立て
 assets/js/qr.js            QR 描画（SVG / PNG）
 assets/vendor/qrcode*.js   QR 生成ライブラリ（同梱）
+assets/docs/               発表ポスターなどの PDF（サイトから直接開けます）
+assets/files/              配布用ファイル（FileMaker ソリューションなど）
 scripts/check-data.mjs     データの書きかたチェック
 scripts/issue-to-data.mjs  Issue の内容を data/ に追記する処理
 .github/ISSUE_TEMPLATE/    「リンクを追加する」などの入力フォーム
