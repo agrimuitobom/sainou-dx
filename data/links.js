@@ -60,6 +60,15 @@ window.LINKS = [
     featured: true,
   },
   {
+    title: "GGAP 書類管理アプリ（FileMaker ファイル）",
+    url: "https://agrimuitobom.github.io/sainou-dx/assets/files/ggap-filemaker-template.fmp12",
+    category: "school-dx",
+    description: "上のアプリ本体を、データを空にした状態で配布しています。FileMaker Pro で開けば、テーブル構成やレイアウトをそのまま見られます。",
+    kind: "app",
+    tags: ["FileMaker", "GLOBAL G.A.P", "配布用"],
+    year: "2026",
+  },
+  {
     title: "GAP Tracker（管理記録アプリ）",
     url: "https://gaptracker-a5fa0.web.app/",
     category: "school-dx",
